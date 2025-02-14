@@ -125,14 +125,9 @@
     Exemplet under löser problemet, men inte speciellt bra. Hur kan man göra istället?
     */
   function concatenateStrings() {
-    let result = "";
-    result += "Lorem";
-    result += "ipsum";
-    result += "dolor";
-    result += "sit";
-    result += "amet";
-  
-    return result;
+  const words = ["Lorem" ,"ipsum","dolor","sit","amet"]
+  return words.join(" ");
+
   }
   
   /* 
@@ -141,24 +136,29 @@
       fler och fler parametrar behöver läggas till? T.ex. avatar eller adress. Hitta en bättre
       lösning som är hållbar och skalar bättre. 
   */
-  function createUser(
-    name: string,
-    birthday: Date,
-    email: string,
-    password: string
-  ) {
-    // Validation
-  
-    let ageDiff = Date.now() - birthday.getTime();
-    let ageDate = new Date(ageDiff);
-    let userAge = Math.abs(ageDate.getUTCFullYear() - 1970);
-  
-    console.log(userAge);
-  
-    if (!(userAge < 20)) {
-      // Logik för att skapa en användare
-    } else {
-      return "Du är under 20 år";
-    }
-  }
-  
+      class User {
+        constructor(
+          public name: string,
+          public birthday: Date,
+          public email: string,
+          public password: string,
+          public avatar: string,
+          public address: string
+        ) {}
+      
+        get age(): number {
+          const ageDiff = Date.now() - this.birthday.getTime();
+          const ageDate = new Date(ageDiff);
+          return Math.abs(ageDate.getUTCFullYear() - 1970);
+        }
+      
+        createUser(): string {
+          if (this.age < 20) {
+            return "Du är under 20 år";
+          }
+          return `User ${this.name} (Age: ${this.age}, Address: ${this.address}, Birthday: ${this.birthday.toLocaleDateString()}) created successfully!`;
+        }
+      }
+      
+     
+      
